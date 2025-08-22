@@ -44,8 +44,16 @@ export default function TelaDeAgendamento() {
             usuario = JSON.parse(data)
         }
         if (usuario && horarioSelecionado && medicoSelecionado) {
+            const data = localStorage.getItem('agendamentos')
+            let agendamentos: Agendamento[]
+            if (data) {
+                agendamentos = JSON.parse(data)
+            } else {
+                agendamentos = []
+            }
             const horarioFinal = new Date(horarioSelecionado);
             horarioFinal.setHours(horarioFinal.getHours() + 1);
+            const index = agendamentos ? agendamentos.length - 1 : new Date().getMilliseconds()
 
             let agendamento = new Agendamento(
                 horarioSelecionado,
@@ -53,10 +61,12 @@ export default function TelaDeAgendamento() {
                 especialidade,
                 AgendamentoStatus.ativo,
                 usuario,
-                medicoSelecionado
+                medicoSelecionado,
+                agendamentos[index].id ? agendamentos[index].id + 2 : index
             )
 
-            
+            agendamentos.push(agendamento)
+            localStorage.setItem('agendamentos', JSON.stringify(agendamentos))
             navigate(-1)
         }
     }

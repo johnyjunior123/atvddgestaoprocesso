@@ -14,7 +14,8 @@ export const agendamentos: Agendamento[] = [
         "Medico Geral",
         AgendamentoStatus.ativo,
         users[0],
-        medicos[0]
+        medicos[0],
+        300
     ),
     new Agendamento(
         criarData(10, 9, 2025, 11, 0),
@@ -22,7 +23,8 @@ export const agendamentos: Agendamento[] = [
         "Medico Geral",
         AgendamentoStatus.cancelado,
         users[0],
-        medicos[0]
+        medicos[0],
+        400
     ),
     new Agendamento(
         criarData(11, 9, 2025, 14, 0),
@@ -30,7 +32,8 @@ export const agendamentos: Agendamento[] = [
         "Medico Geral",
         AgendamentoStatus.encerrado,
         users[0],
-        medicos[0]
+        medicos[0],
+        500
     ),
     new Agendamento(
         criarData(12, 9, 2025, 16, 0),
@@ -38,7 +41,8 @@ export const agendamentos: Agendamento[] = [
         "Medico Geral",
         AgendamentoStatus.ativo,
         users[0],
-        medicos[0]
+        medicos[0],
+        600
     ),
 ];
 

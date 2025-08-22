@@ -1,7 +1,8 @@
 import { AgendamentoStatus, type Agendamento } from "database/agendamento";
+import { medicos } from "database/medicos";
 import { users } from "database/user";
 import { PlusCircle, Calendar, LogOut } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { capitalizeWords } from "utils/capitalizeWords";
 import { formatDateWithTime } from "utils/formatarData";
@@ -9,9 +10,20 @@ import { getStatusColor } from "utils/getColor";
 
 export default function TelaInicial() {
     const [agendamentos, setAgendamentos] = useState<Agendamento[]>([
-        { id: 1, inicio: new Date(), fim: new Date(), cliente: users[0], tipo: 'Medico Geral', status: AgendamentoStatus.ativo }
+        { id: 1, inicio: new Date(), fim: new Date(), cliente: users[0], tipo: 'Medico Geral', status: AgendamentoStatus.ativo, medico: medicos[0] }
     ])
     const navigate = useNavigate()
+
+    useEffect(() => {
+        const data = localStorage.getItem('agendamentos')
+        let agendamentosSalvos: Agendamento[] = []
+        if (data) {
+            agendamentosSalvos = JSON.parse(data)
+        }
+        if (agendamentosSalvos.length >= 1) {
+            setAgendamentos(agendamentosSalvos)
+        }
+    }, [])
 
     const handleCancel = async (id: number): Promise<void> => {
         setAgendamentos(agendamentos.map(element => {
@@ -50,12 +62,16 @@ export default function TelaInicial() {
                                 <Calendar className="text-blue-500" />
                                 <div>
                                     <p className="text-gray-800 font-semibold">{capitalizeWords(agendamento.tipo)}</p>
-                                    <span className="text-gray-500 text-sm">{formatDateWithTime(agendamento.inicio)}</span>
+                                    <span className="text-gray-500 text-sm">{`Dia: ${formatDateWithTime(agendamento.inicio)}`}</span>
                                 </div>
                             </div>
                             <span className={`text-sm ${getStatusColor(agendamento.status)}`}>{capitalizeWords(agendamento.status)}</span>
                             {agendamento.status == AgendamentoStatus.ativo && (
-                                <button onClick={() => handleCancel(agendamento.id)} className="cursor-pointer bg-black">Cancelar</button>
+                                <button onClick={() => {
+                                    agendamento.id ? handleCancel(agendamento.id) : 'Nothing'
+                                }
+                                } className="px-4 py-2 bg-red-600 text-white font-medium rounded-lg hover:bg-red-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
+                                >Cancelar</button>
                             )}
                         </div>
                     ))}

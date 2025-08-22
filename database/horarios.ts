@@ -1,6 +1,6 @@
 export const horarios_database = [
     {
-        idMedico: 1, horarios: [
+        idMedico: 777, horarios: [
             new Date(2025, 8, 10, 9, 0),
             new Date(2025, 8, 10, 10, 0),
             new Date(2025, 8, 10, 14, 0),
@@ -9,7 +9,7 @@ export const horarios_database = [
         ]
     },
     {
-        idMedico: 2, horarios: [
+        idMedico: 778, horarios: [
             new Date(2025, 8, 10, 9, 0),
             new Date(2025, 8, 10, 10, 0),
             new Date(2025, 8, 10, 14, 0),
