@@ -17,16 +17,17 @@ export function Welcome() {
                 break
             }
         }
-        setLoading(false)           
-        if(!usuario) {
+        setLoading(false)
+        if (!usuario) {
             setLoading(false)
             return alert('O email ou senha está incorreto!')
         }
+        localStorage.setItem('usuario', JSON.stringify(usuario))
         if (usuario.role == 'usuario') {
-            return navigate('/dashboard')
+            return navigate('/inicio')
         }
         if (usuario.role == 'doutor') {
-            return navigate('/geral')
+            return navigate('/dashboard')
         }
     }
 
