@@ -1,19 +1,50 @@
+import { users } from "database/user";
+import { useState } from "react";
+import { useNavigate } from "react-router";
+
 export function Welcome() {
+    const [loading, setLoading] = useState(false)
+    const navigate = useNavigate();
+
+    const login = async (e: React.FormEvent) => {
+        e.preventDefault()
+        setLoading(true)
+        const formData = new FormData(e.target as HTMLFormElement)
+        let usuario
+        for (let element of users) {
+            if (element.email == formData.get('email') && element.password == formData.get('password')) {
+                usuario = element
+                break
+            }
+        }
+        setLoading(false)           
+        if(!usuario) {
+            setLoading(false)
+            return alert('O email ou senha está incorreto!')
+        }
+        if (usuario.role == 'usuario') {
+            return navigate('/dashboard')
+        }
+        if (usuario.role == 'doutor') {
+            return navigate('/geral')
+        }
+    }
+
     return (
         <main className="flex h-screen items-center justify-center bg-black px-4">
             <form
-                action=""
+                onSubmit={login}
                 className="flex flex-col bg-white text-gray-800 p-8 sm:p-10 md:p-12 gap-4 rounded-2xl shadow-lg w-full max-w-sm"
             >
                 <h1 className="text-2xl font-bold text-center text-gray-900">Bem-vindo</h1>
 
                 <div className="flex flex-col gap-2">
-                    <label htmlFor="cpf" className="text-sm font-medium">Login</label>
+                    <label htmlFor="email" className="text-sm font-medium">Login</label>
                     <input
                         type="text"
-                        name="cpf"
-                        id="cpf"
-                        placeholder="Digite seu login"
+                        name="email"
+                        id="email"
+                        placeholder="Digite seu E-mail"
                         className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                 </div>
