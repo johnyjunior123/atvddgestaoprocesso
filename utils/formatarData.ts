@@ -4,5 +4,12 @@ export function formatDateWithTime(date: Date): string {
     const horas = String(date.getHours()).padStart(2, "0");
     const minutos = String(date.getMinutes()).padStart(2, "0");
 
-    return `${dia}/${mes} às ${horas}:${minutos}`;
+    return `${dia}/${mes} até as ${horas}:${minutos}`;
+}
+
+export function formatHoras(date: Date): string {
+    const horas = String(date.getHours()).padStart(2, "0");
+    const minutos = String(date.getMinutes()).padStart(2, "0");
+
+    return `${horas}:${minutos}`;
 }

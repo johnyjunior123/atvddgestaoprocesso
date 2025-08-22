@@ -43,8 +43,7 @@ export default function TelaDeAgendamento() {
         if (data) {
             usuario = JSON.parse(data)
         }
-        console.log(usuario)
-        if (usuario && horarioSelecionado) {
+        if (usuario && horarioSelecionado && medicoSelecionado) {
             const horarioFinal = new Date(horarioSelecionado);
             horarioFinal.setHours(horarioFinal.getHours() + 1);
 
@@ -53,7 +52,8 @@ export default function TelaDeAgendamento() {
                 horarioFinal,
                 especialidade,
                 AgendamentoStatus.ativo,
-                usuario
+                usuario,
+                medicoSelecionado
             )
 
             console.log(agendamento)

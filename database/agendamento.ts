@@ -1,3 +1,5 @@
+import type { Medico } from "./medico"
+
 export type Usuario = {
     id: number
     email: string
@@ -18,9 +20,10 @@ export class Agendamento {
     readonly fim: Date
     readonly tipo: string
     status: AgendamentoStatus
+    medico: Medico
     cliente: Usuario
 
-    constructor(inicio: Date, fim: Date, tipo: string, status: AgendamentoStatus, cliente: Usuario, id?: number) {
+    constructor(inicio: Date, fim: Date, tipo: string, status: AgendamentoStatus, cliente: Usuario, medico: Medico, id?: number) {
         if (inicio > fim) throw new Error('Data de inicio não pode ser maior que fim')
         this.id = id
         this.inicio = inicio
@@ -28,5 +31,6 @@ export class Agendamento {
         this.tipo = tipo
         this.status = status
         this.cliente = cliente
+        this.medico = medico
     }
 }
