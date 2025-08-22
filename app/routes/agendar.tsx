@@ -56,8 +56,8 @@ export default function TelaDeAgendamento() {
                 medicoSelecionado
             )
 
-            console.log(agendamento)
-            // navigate(-1)
+            
+            navigate(-1)
         }
     }
 
